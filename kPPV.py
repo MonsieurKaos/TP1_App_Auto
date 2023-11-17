@@ -7,57 +7,62 @@ nbApprent = 25
 nbCaract = 4
 nbClasse = 3
 
+
 def lectureFichierCSV():
-    with open("iris.data", 'r')as fic:
+    with open("iris.data", 'r') as fic:
         lines = csv.reader(fic)
         dataset = list(lines)
     print(dataset[0], len(dataset))
     for i in range(len(dataset)):
         for j in range(nbCaract):
             dataset[i][j] = float(dataset[i][j])
-            #print (dataset[i][j])
+            # print (dataset[i][j])
     print(dataset[0])
-    return(dataset)
+    return (dataset)
+
 
 def calculdistances(data, dataset):
     """ retourne les distances entre data et la partie apprentissage de dataset"""
     distances = []
-    for i in range(nbClasse*nbExParClasse):
+    for i in range(nbClasse * nbExParClasse):
         if i % nbExParClasse < nbApprent:
             dist = 0
             for k in range(nbCaract):
-                dist += (data[k]-dataset[i][k])**2
-            distances.append(dist**0.5)
+                dist += (data[k] - dataset[i][k]) ** 2
+            distances.append(dist ** 0.5)
+
     return distances
 
-def calculClasse(distances):
+
+def calculclasse(distances):
     """ retourne le numéro de la classe déterminé à partir des distances """
     t = min(distances)
-    for i in range (len(distances)):
+    m = 0
+    for i in range(len(distances)):
         if distances[i] == t:
             m = i
-    if m < nbApprent-1 :
+    if m < nbApprent - 1:
         classe = 0
-    elif m<(nbApprent*2)-1 and m>nbApprent-1 :
+    elif (nbApprent * 2) - 1 > m > nbApprent - 1:
         classe = 1
-    else :
+    else:
         classe = 2
-	#-------- A faire... --------
+    # -------- A faire... --------
 
     return (classe)
+
 
 if __name__ == "__main__":
     print("Début programme kPPV")
     dataset = lectureFichierCSV()
-    print (dataset[0][0])
-    distance = calculdistances([5.0,3.6,1.4,0.2],dataset)
-    print (distance)
-    classe = calculClasse(distance)
-    print (classe)
+    print(dataset[0][0])
+    distance = calculdistances([5.0, 3.6, 1.4, 0.2], dataset)
+    print(distance)
+    classe = calculclasse(distance)
+    print(classe)
 
     # Calcule et affiche la matrice de confusion et le taux de reco
 
+# -------- A faire... --------
 
-	#-------- A faire... --------
-
-#--------------------------------- Fin kPPV -----------------------------------
+# --------------------------------- Fin kPPV -----------------------------------
